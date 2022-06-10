@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "await-to-js": "^3.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.1",
+    "glob": "^8.0.3",
+    "lodash": "^4.17.21",
+    "nodemon": "^2.0.16",
+    "winston": "^3.7.2",
+    "winston-daily-rotate-file": "^4.7.1"
+  }
+}

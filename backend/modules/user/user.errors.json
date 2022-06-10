@@ -1,0 +1,14 @@
+{
+  "1001": {
+    "msg": "Email is required and it should be a string."
+  },
+  "1002": {
+    "msg": "Invalid email address."
+  },
+  "1003": {
+    "msg": "Password is required."
+  },
+  "1004": {
+    "msg": "Password must be at least 8 characters long. It must contain at least 1 uppercase letter, 1 special character and 1 number."
+  }
+}
