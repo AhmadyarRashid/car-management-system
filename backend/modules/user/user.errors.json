@@ -10,5 +10,23 @@
   },
   "1004": {
     "msg": "Password must be at least 8 characters long. It must contain at least 1 uppercase letter, 1 special character and 1 number."
+  },
+  "1005": {
+    "msg": "firstName is required and it should be a string."
+  },
+  "1006": {
+    "msg": "firstName length must be greater than 3."
+  },
+  "1007": {
+    "msg": "lastName is required and it should be a string."
+  },
+  "1008": {
+    "msg": "lastName length must be greater than 3."
+  },
+  "1009": {
+    "msg": "Email already exists please use different one."
+  },
+  "1010": {
+    "msg": "User account not exists against this email."
   }
 }

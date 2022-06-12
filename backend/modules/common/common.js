@@ -1,16 +1,29 @@
+// NPM Dependencies
+const bcrypt = require('bcrypt');
+
 // Common utility functions that can be used by all modules.
 module.exports = {
   /**
-   * Validates Password.
-   * Password validation criteria
-   * Password must be at least 8 characters long.
-   * It must contain at least 1 uppercase letter, 1 special character
-   * and 1 number
+   * split and hashing password
    */
-  passwordValidator(password) {
-    return new RegExp(
-      "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-    ).test(password);
+  cryptPassword(password, callback) {
+    bcrypt.genSalt(10, function(err, salt) {
+      if (err)
+        return callback(err);
+      bcrypt.hash(password, salt, function(err, hash) {
+        return callback(err, hash);
+      });
+    });
+  },
+  /**
+   * Compare password
+   */
+  comparePassword(plainPass, hashPass, callback) {
+    bcrypt.compare(plainPass, hashPass, function(err, isPasswordMatch) {
+      return err == null ?
+        callback(null, isPasswordMatch) :
+        callback(err);
+    });
   },
   /**
    * This method creates a response object with given params.
