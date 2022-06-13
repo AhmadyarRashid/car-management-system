@@ -1,5 +1,6 @@
 // App dependencies
 const errorMiddleware = require("../common/error-middleware");
+const common = require("../common/common");
 const userController = require("./user.controller");
 const userMiddleware = require("./user.middleware");
 
@@ -17,6 +18,12 @@ module.exports = function (app, version) {
     userMiddleware.validateLoginParams,
     errorMiddleware,
     userController.userLogin
+  );
+  app.get(
+    `${version}${resource}/me`,
+    common.verifyToken,
+    errorMiddleware,
+    userController.userProfile
   );
 };
 

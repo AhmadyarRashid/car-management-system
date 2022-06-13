@@ -1,5 +1,9 @@
 // NPM Dependencies
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+
+// APP Dependencies
+const constant = require('../../config/constants');
 
 // Common utility functions that can be used by all modules.
 module.exports = {
@@ -26,6 +30,29 @@ module.exports = {
     });
   },
   /**
+   * Verify Token
+   */
+  verifyToken(req, res, next) {
+    if (!req.headers.authorization || !req.headers.authorization.startsWith(constant.tokenHeaderKey)) {
+      next({
+        msgCode: "0003",
+        status: 401,
+      });
+    } else {
+      const idToken = req.headers.authorization.substring(7, req.headers.authorization.length);
+      try {
+        req.user = jwt.verify(idToken, constant.tokenKey);
+      } catch (err) {
+        next({
+          msgCode: "0003",
+          status: 401,
+        });
+      }
+      return next();
+    }
+  },
+
+  /**
    * This method creates a response object with given params.
    */
   getResponseObject(msg, responseCode, success = 1, data = {}) {
@@ -33,7 +60,7 @@ module.exports = {
       success: success,
       response: responseCode,
       message: msg,
-      data: data,
+      payload: data,
     };
   },
 };

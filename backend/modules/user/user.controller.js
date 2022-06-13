@@ -1,9 +1,11 @@
 // NPM dependencies
 const { to } = require("await-to-js");
+const jwt = require("jsonwebtoken");
 
 // App dependencies
 const winston = require('../../config/winston');
 const common = require('../common/common');
+const constants = require('../../config/constants');
 const loginModel = require('../../models/login');
 const userModel = require('../../models/user');
 
@@ -22,6 +24,10 @@ module.exports = {
         });
       } else {
         const userLogin = response[0];
+        const user = {
+          userId: userLogin._id,
+          email: userLogin.email,
+        };
         common.comparePassword(password, userLogin.password, (err, isPassMatch) => {
           if (err) {
             next({
@@ -32,7 +38,15 @@ module.exports = {
             winston.error(`Wrong password ${email}`);
             res.status(200).send(common.getResponseObject("Password is wrong!", 400));
           } else {
-            res.status(200).send(common.getResponseObject("Login Successful", 200));
+            // Create token
+            const token = jwt.sign(
+              user,
+              constants.tokenKey,
+              {
+                expiresIn: "2h",
+              }
+            );
+            res.status(200).send(common.getResponseObject("Login Successful", 200, 1, {...user, token}));
           }
         })
       }
@@ -82,5 +96,9 @@ module.exports = {
         });
       }
     });
+  },
+  // Get User Profile
+  userProfile(req, res) {
+    res.status(200).send(common.getResponseObject('Authorized successfully', 200, 1, req.user));
   },
 };

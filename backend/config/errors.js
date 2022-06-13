@@ -23,13 +23,7 @@ const errorObject = {
   },
   "0005": {
     msg: "Something went wrong.",
-  },
-  "0006": {
-    msg: "User Roles not found.",
-  },
-  "0007": {
-    msg: "Unauthorized Role.",
-  },
+  }
 };
 
 glob.sync(routePath).forEach((file) => {
