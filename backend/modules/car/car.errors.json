@@ -1,0 +1,14 @@
+{
+  "2001": {
+    "msg": "Category is required and it should be a string."
+  },
+  "2002": {
+    "msg": "Category length must be greater than 2."
+  },
+  "2003": {
+    "msg": "Category already exists!"
+  },
+  "2004": {
+    "msg": "Invalid id"
+  }
+}
