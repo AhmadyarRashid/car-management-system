@@ -7,15 +7,15 @@ const CarSchema = new mongoose.Schema({
   },
   model: {
     type: String,
-    required: true,
+    default: null,
   },
   make: {
     type: String,
-    required: true,
+    default: null,
   },
   registrationNo: {
     type: String,
-    required: true,
+    default: null,
   },
   color: {
     type: String,
@@ -30,14 +30,6 @@ const CarSchema = new mongoose.Schema({
     type: String,
     required: true,
     minLength: 12,
-  },
-  year: {
-    type: Number,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
   },
   date: {
     type: Date,

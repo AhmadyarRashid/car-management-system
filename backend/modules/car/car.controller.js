@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 // App dependencies
 const winston = require('../../config/winston');
 const common = require('../common/common');
-const constants = require('../../config/constants');
 const categoryModel = require('../../models/category');
+const carModel = require('../../models/car');
 
 module.exports = {
   /**
@@ -84,7 +84,7 @@ module.exports = {
   deleteCategory(req, res, next) {
     categoryModel.findOneAndDelete(req.params.id, {}, (err, response) => {
       if (err) {
-        winston.error(`Update Category failed error ${err}`);
+        winston.error(`Delete Category API failed with error ${err}`);
         next(err);
       } else {
         res.status(200).send(common.getResponseObject('Category deleted', 200, 1));
@@ -98,8 +98,16 @@ module.exports = {
    * @param res
    * @param next
    */
-  addCar(req, res, next) {
-    res.status(200).send(common.getResponseObject('Authorized successfully', 200, 1, req.user));
+  async addCar(req, res, next) {
+    const car = new carModel(req.body);
+    const [isError, carResponse] = await to(car.save());
+    if (isError) {
+      winston.error(`Update Category failed error ${isError}`);
+      next(isError);
+    } else {
+      winston.info(`Car with title ${req.body.title} added by ${req.user.userId}`)
+      res.status(200).send(common.getResponseObject('Added Successfully', 200, 1, carResponse));
+    }
   },
   /**
    * Get Cars
@@ -108,7 +116,14 @@ module.exports = {
    * @param next
    */
   fetchCars(req, res, next) {
-    res.status(200).send(common.getResponseObject('Authorized successfully', 200, 1, req.user));
+    carModel.find({}, async (err, cars) => {
+        if (err) {
+          winston.error(`Update Category failed error ${err}`);
+          next(err);
+        } else {
+          res.status(200).send(common.getResponseObject('Fetched Successfully', 200, 1, cars));
+        }
+    });
   },
   /**
    * Update Cars
@@ -117,7 +132,14 @@ module.exports = {
    * @param next
    */
   updateCars(req, res, next) {
-    res.status(200).send(common.getResponseObject('Authorized successfully', 200, 1, req.user));
+    carModel.findByIdAndUpdate(req.params.id, req.body, {}, (err) => {
+      if (err) {
+        winston.error(`Update Car failed with error ${err}`);
+        next(err);
+      } else {
+        res.status(200).send(common.getResponseObject('Car Updated', 200, 1));
+      }
+    });
   },
   /**
    * Delete Car
@@ -126,6 +148,13 @@ module.exports = {
    * @param next
    */
   deleteCar(req, res, next) {
-    res.status(200).send(common.getResponseObject('Authorized successfully', 200, 1, req.user));
+    carModel.findOneAndDelete(req.params.id, {}, (err, response) => {
+      if (err) {
+        winston.error(`Delete Car API failed with error ${err}`);
+        next(err);
+      } else {
+        res.status(200).send(common.getResponseObject('Car deleted', 200, 1));
+      }
+    });
   },
 };

@@ -10,5 +10,38 @@
   },
   "2004": {
     "msg": "Invalid id"
+  },
+  "2005": {
+    "msg": "Title is required and it should be a string."
+  },
+  "2006": {
+    "msg": "Title should be a string."
+  },
+  "2007": {
+    "msg": "Model should be a string with minimum length of 3."
+  },
+  "2008": {
+    "msg": "Make is required and its should be a string with minimum length of 3."
+  },
+  "2009": {
+    "msg": "Make should be a string with minimum length of 3."
+  },
+  "2010": {
+    "msg": "Registration No is required and its should be a string."
+  },
+  "2011": {
+    "msg": "Registration No should be a string."
+  },
+  "2012": {
+    "msg": "Color should be a string."
+  },
+  "2013": {
+    "msg": "Condition should be a string."
+  },
+  "2014": {
+    "msg": "Description is required and its should be a string."
+  },
+  "2015": {
+    "msg": "Description should be a string."
   }
 }

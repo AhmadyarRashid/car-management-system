@@ -1,8 +1,8 @@
 // App dependencies
 const errorMiddleware = require("../common/error-middleware");
 const common = require("../common/common");
-const userController = require("./car.controller");
-const userMiddleware = require("./car.middleware");
+const carController = require("./car.controller");
+const carMiddleware = require("./car.middleware");
 
 const resource = "/car";
 
@@ -12,31 +12,31 @@ module.exports = function (app, version) {
    */
   app.post(
     `${version}${resource}/category`,
-    userMiddleware.category,
+    carMiddleware.validateCategoryParams,
     common.verifyToken,
     errorMiddleware,
-    userController.createCategory
+    carController.createCategory
   );
   app.get(
     `${version}${resource}/category`,
     common.verifyToken,
     errorMiddleware,
-    userController.fetchCategories
+    carController.fetchCategories
   );
   app.put(
     `${version}${resource}/category/:id`,
-    userMiddleware.validateParamId,
-    userMiddleware.category,
+    carMiddleware.validateParamId,
+    carMiddleware.validateCategoryParams,
     common.verifyToken,
     errorMiddleware,
-    userController.updateCategory
+    carController.updateCategory
   );
   app.delete(
     `${version}${resource}/category/:id`,
-    userMiddleware.validateParamId,
+    carMiddleware.validateParamId,
     common.verifyToken,
     errorMiddleware,
-    userController.deleteCategory
+    carController.deleteCategory
   );
 
   /**
@@ -44,35 +44,39 @@ module.exports = function (app, version) {
    */
   app.post(
     `${version}${resource}`,
-    userMiddleware.validateLoginParams,
+    carMiddleware.validateAddCarParams,
     common.verifyToken,
     errorMiddleware,
-    userController.addCar
+    carController.addCar
   );
   app.get(
     `${version}${resource}`,
     common.verifyToken,
     errorMiddleware,
-    userController.fetchCars
+    carController.fetchCars
   );
   // Get detailed information about specific car
   app.get(
     `${version}${resource}/:id`,
+    carMiddleware.validateParamId,
     common.verifyToken,
     errorMiddleware,
-    userController.fetchCars
+    carController.fetchCars
   );
   app.patch(
     `${version}${resource}/:id`,
+    carMiddleware.validateUpdateCarParams,
+    carMiddleware.validateParamId,
     common.verifyToken,
     errorMiddleware,
-    userController.updateCars
+    carController.updateCars
   );
   app.delete(
     `${version}${resource}/:id`,
+    carMiddleware.validateParamId,
     common.verifyToken,
     errorMiddleware,
-    userController.deleteCar
+    carController.deleteCar
   );
 };
 
