@@ -16,6 +16,12 @@ const constants = {
     }
   ],
   drawerWidth: 240,
+  modalType: {
+    details: 'DETAIL',
+    add: 'ADD',
+    edit: 'EDIT',
+    delete: 'DELETE',
+  },
 }
 
 export default constants;

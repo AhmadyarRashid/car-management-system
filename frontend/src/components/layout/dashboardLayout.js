@@ -15,7 +15,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 // App Dependencies
 import {
@@ -25,6 +25,7 @@ import {
 import constant from "../../utils/constant";
 
 export default function DashboardLayout({children}) {
+  const location = useLocation();
   const theme = useTheme();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
@@ -71,6 +72,7 @@ export default function DashboardLayout({children}) {
             <ListItem key={text} disablePadding sx={{display: 'block'}}>
               <ListItemButton
                 onClick={() => navigate(url, { replace: true })}
+                selected={location.pathname === url}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
