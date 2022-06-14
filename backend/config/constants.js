@@ -4,5 +4,7 @@ module.exports = {
   errorTypes: {
     expressValidatorError: 'ValidationError'
   },
-  tokenKey: 'ropstamtokenkey112244'
+  tokenKey: 'ropstamtokenkey112244',
+  googleEmail: 'smartfirealarms@gmail.com',
+  googlePass: 'xdaiatgidgdoyqin',
 }

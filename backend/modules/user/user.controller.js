@@ -1,6 +1,7 @@
 // NPM dependencies
 const { to } = require("await-to-js");
 const jwt = require("jsonwebtoken");
+const nodemailer = require('nodemailer');
 
 // App dependencies
 const winston = require('../../config/winston');
@@ -66,7 +67,7 @@ module.exports = {
           status: 401,
         });
       } else {
-        const password = Math.random().toString(36).slice(0, 6);
+        const password = Math.random().toString(36).slice(2, 8);
         winston.info(`user email ${email} with password ${password}`);
         common.cryptPassword(password, async (err, hashPassword) => {
           if (err) {
@@ -89,6 +90,30 @@ module.exports = {
                 next(isUserError);
               } else {
                 winston.info(`User created response ${userResponse}`);
+                const transporter = nodemailer.createTransport({
+                  service: 'gmail',
+                  host: 'smtp.gmail.com',
+                  port: 465,
+                  secure: true,
+                  auth: {
+                    user: constants.googleEmail,
+                    pass: constants.googlePass
+                  }
+                });
+
+                await transporter.sendMail({
+                  from: constants.googleEmail,
+                  to: email,
+                  subject: 'Congratulation. Your account is created.',
+                  text: `Your Password is ${password}`
+                }, function (error, info) {
+                  if (error) {
+                    winston.error(`Error during sending mail ${error}`);
+                    next(error);
+                  } else {
+                    winston.info('Email sent: ' + info.response);
+                  }
+                });
                 res.status(201).send(common.getResponseObject("User Created", 201, 1, userResponse));
               }
             }
