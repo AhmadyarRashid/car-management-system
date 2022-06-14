@@ -11,6 +11,8 @@ import { ThemeProvider } from "@mui/material";
 // App Dependencies
 import Signup from "./pages/signup/signup";
 import SignIn from "./pages/signin/signin";
+import CarsPage from "./pages/cars/cars";
+import CategoryPage from "./pages/category/category";
 
 const theme = createTheme();
 
@@ -19,7 +21,8 @@ function App () {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<SignIn />} />
+          <Route path="/" element={<CarsPage />} />
+          <Route path="/category" element={<CategoryPage />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<Signup />} />
         </Routes>

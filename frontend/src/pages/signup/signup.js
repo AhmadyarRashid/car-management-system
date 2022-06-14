@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { Formik } from "formik";
 
 // App Dependencies
-import RandomImageLayout from "../../components/layout/randomSideImage";
+import RandomImageLayout from "../../components/layout/randomImageLayout";
 
 export default function Signup() {
   return (
