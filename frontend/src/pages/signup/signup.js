@@ -8,75 +8,123 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import { Formik } from "formik";
 
 // App Dependencies
 import RandomImageLayout from "../../components/layout/randomSideImage";
 
 export default function Signup() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
   return (
     <RandomImageLayout>
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        <LockOutlinedIcon />
+      <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+        <LockOutlinedIcon/>
       </Avatar>
       <Typography component="h1" variant="h5">
         Create new account ?
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-        <Box display="flex" flexDirection="row" justifyContent="space-between">
-          <TextField
-            margin="normal"
-            required
-            id="firstName"
-            label="First Name"
-            name="firstName"
-            sx={{ width: '48%' }}
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            id="lastName"
-            label="Last Name"
-            name="lastName"
-            sx={{ width: '48%' }}
-          />
-        </Box>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Sign up
-        </Button>
-        <Grid container>
-          <Grid item xs />
-          <Grid item>
-            <Link to="/sign-in" variant="body2">
-              {"Already have an account? Sign In"}
-            </Link>
-          </Grid>
-        </Grid>
-      </Box>
+      <Formik
+        initialValues={{firstName: '', lastName: '', email: ''}}
+        validate={values => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = 'Required';
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = 'Invalid email address';
+          }
+          if (!values.firstName) {
+            errors.firstName = 'Required';
+          } else if (values.firstName.length < 3) {
+            errors.firstName = 'At least 3 char length.';
+          }
+          if (!values.lastName) {
+            errors.lastName = 'Required';
+          } else if (values.lastName.length < 3) {
+            errors.lastName = 'At least 3 char length.';
+          }
+          return errors;
+        }}
+        onSubmit={(values, {setSubmitting}) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
+      >
+        {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
+            <Box display="flex" flexDirection="row" justifyContent="space-between">
+              <Box sx={{width: '48%'}} display="flex" flexDirection="column">
+                <TextField
+                  margin="normal"
+                  required
+                  id="firstName"
+                  label="First Name"
+                  name="firstName"
+                  value={values.firstName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  autoFocus
+                />
+                {errors.firstName && touched.firstName && <span>{errors.firstName}</span>}
+              </Box>
+              <Box sx={{width: '48%'}} display="flex" flexDirection="column">
+                <TextField
+                  margin="normal"
+                  required
+                  id="lastName"
+                  label="Last Name"
+                  value={values.lastName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="lastName"
+                />
+                {errors.lastName && touched.lastName && <span>{errors.lastName}</span>}
+              </Box>
+            </Box>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              autoComplete="email"
+              autoFocus
+            />
+            {errors.email && touched.email && <span>{errors.email}</span>}
+            <Button
+              type="submit"
+              fullWidth
+              disabled={isSubmitting}
+              variant="contained"
+              sx={{mt: 3, mb: 2}}
+            >
+              {isSubmitting ? 'Loading...': 'Sign up'}
+            </Button>
+            <Grid container>
+              <Grid item xs/>
+              <Grid item>
+                <Link to="/sign-in" variant="body2">
+                  {"Already have an account? Sign In"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+      </Formik>
     </RandomImageLayout>
   );
 }
