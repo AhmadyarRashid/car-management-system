@@ -8,48 +8,8 @@ import {Modal} from "@mui/material";
 import DashboardLayout from "../../components/layout/dashboardLayout";
 import MuiSortableTable from "../../components/muiSortableTable/MuiSortableTable";
 import AddCategory from "../../components/Forms/AddCategory";
-import constants from "../../utils/constant";
 import DeleteItem from "../../components/modals/deleteItem";
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  borderRadius: 2,
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-const headCells = [
-  {
-    id: 'id',
-    numeric: true,
-    disablePadding: false,
-    label: '#',
-  },
-  {
-    id: '_id',
-    numeric: true,
-    disablePadding: false,
-    label: '_id',
-  },
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: false,
-    label: 'Name',
-  },
-  {
-    id: 'actions',
-    numeric: false,
-    disablePadding: false,
-    label: 'Actions',
-  },
-];
+import constants, {modalStyles, categoryTableHeader} from "../../utils/constant";
 
 function createData(id, _id, name) {
   return {
@@ -57,7 +17,7 @@ function createData(id, _id, name) {
     _id,
     name,
   };
-}
+};
 
 const rows = [
   createData(1, 'a123njdc9', 'MG'),
@@ -93,7 +53,7 @@ export default function CategoryPage() {
       <MuiSortableTable
         title="Category"
         rows={rows}
-        header={headCells}
+        header={categoryTableHeader}
         page={page}
         displayAddNew
         openAddNewHandler={() => {
@@ -119,7 +79,7 @@ export default function CategoryPage() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={modalStyles}>
           {decideModalBody()}
         </Box>
       </Modal>

@@ -7,62 +7,10 @@ import {Modal} from "@mui/material";
 // App Dependencies
 import DashboardLayout from "../../components/layout/dashboardLayout";
 import MuiSortableTable from "../../components/muiSortableTable/MuiSortableTable";
-import constants from "../../utils/constant";
+import constants, { modalStyles, carTableHeader } from "../../utils/constant";
 import DeleteItem from "../../components/modals/deleteItem";
 import AddCar from "../../components/Forms/AddCar";
 import CarDetails from "../../components/modals/carDetails";
-
-const headCells = [
-  {
-    id: 'id',
-    numeric: true,
-    disablePadding: false,
-    label: '#',
-  },
-  {
-    id: '_id',
-    numeric: true,
-    disablePadding: false,
-    label: '_id',
-  },
-  {
-    id: 'title',
-    numeric: false,
-    disablePadding: false,
-    label: 'Name',
-  },
-  {
-    id: 'make',
-    numeric: false,
-    disablePadding: false,
-    label: 'Make',
-  },
-  {
-    id: 'model',
-    numeric: false,
-    disablePadding: false,
-    label: 'Model',
-  },
-  {
-    id: 'actions',
-    numeric: false,
-    disablePadding: false,
-    label: 'Actions',
-  },
-];
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  borderRadius: 2,
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 function createData(id, _id, title, make, model) {
   return {
@@ -109,7 +57,7 @@ export default function CarsPage() {
       <MuiSortableTable
         title="Car"
         rows={rows}
-        header={headCells}
+        header={carTableHeader}
         page={page}
         displayAddNew
         displayInfoIcon
@@ -139,7 +87,7 @@ export default function CarsPage() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={modalStyles}>
           {decideModalBody()}
         </Box>
       </Modal>
