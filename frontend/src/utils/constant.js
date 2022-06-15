@@ -3,6 +3,7 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 
 const constants = {
+  serverUrl: 'http://localhost:3001/api/v1.0',
   sideBarList: [
     {
       text: 'Category',

@@ -14,7 +14,7 @@ module.exports = {
   // login controller
   userLogin(req, res, next) {
     const { email, password } = req.body;
-    loginModel.find({email}, async (err, response) => {
+    loginModel.find({ email }, async (err, response) => {
       if (err) {
         winston.error(`Signup failed error ${err}`);
         next(err);
@@ -47,7 +47,7 @@ module.exports = {
                 expiresIn: "2h",
               }
             );
-            res.status(200).send(common.getResponseObject("Login Successful", 200, 1, {...user, token}));
+            res.status(200).send(common.getResponseObject("Login Successful", 200, 1, { ...user, token }));
           }
         })
       }
@@ -56,7 +56,7 @@ module.exports = {
   // signup controller
   async signupUser(req, res, next) {
     const { email, firstName, lastName } = req.body;
-    loginModel.find({email}, async (err, isEmailExists) => {
+    loginModel.find({ email }, async (err, isEmailExists) => {
       if (err) {
         winston.error(`Signup failed error ${err}`);
         next(err);
@@ -64,7 +64,7 @@ module.exports = {
         winston.error(`${email} already exists. Please use other one.`);
         next({
           msgCode: "1009",
-          status: 401,
+          status: 409,
         });
       } else {
         const password = Math.random().toString(36).slice(2, 8);
@@ -77,13 +77,13 @@ module.exports = {
               status: 401,
             })
           } else {
-            const login = new loginModel({email, password: hashPassword});
+            const login = new loginModel({ email, password: hashPassword });
             const [isLoginError] = await to(login.save());
             if (isLoginError) {
               winston.error(`login error on ${isLoginError}`);
               next(isLoginError);
             } else {
-              const user = new userModel({email, firstName, lastName});
+              const user = new userModel({ email, firstName, lastName });
               const [isUserError, userResponse] = await to(user.save());
               if (isUserError) {
                 winston.error(`Signup user info save error ${isUserError}`);
@@ -114,7 +114,14 @@ module.exports = {
                     winston.info('Email sent: ' + info.response);
                   }
                 });
-                res.status(201).send(common.getResponseObject("User Created", 201, 1, userResponse));
+                res.status(201).send(
+                  common.getResponseObject(
+                    "User Account Created. Password sent it your email. Please check it",
+                    201,
+                    1,
+                    userResponse
+                  )
+                );
               }
             }
           }
