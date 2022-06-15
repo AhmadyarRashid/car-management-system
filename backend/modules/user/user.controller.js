@@ -37,7 +37,10 @@ module.exports = {
             });
           } else if (!isPassMatch) {
             winston.error(`Wrong password ${email}`);
-            res.status(200).send(common.getResponseObject("Password is wrong!", 400));
+            next({
+              msgCode: '0006',
+              status: 401,
+            });
           } else {
             // Create token
             const token = jwt.sign(

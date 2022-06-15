@@ -23,7 +23,10 @@ const errorObject = {
   },
   "0005": {
     msg: "Something went wrong.",
-  }
+  },
+  "0006": {
+    msg: "Password is wrong!",
+  },
 };
 
 glob.sync(routePath).forEach((file) => {

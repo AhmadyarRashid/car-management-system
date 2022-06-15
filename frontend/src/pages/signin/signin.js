@@ -1,5 +1,5 @@
 // NPM Dependencies
-import * as React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,23 +7,28 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
-import { Formik } from 'formik';
+import {Link} from 'react-router-dom';
+import {Alert} from "@mui/material";
+import {Formik} from 'formik';
+import axios from 'axios';
 
 // App Dependencies
 import RandomImageLayout from "../../components/layout/randomImageLayout";
+import constant from "../../utils/constant";
 
 export default function SignIn() {
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   return (
     <RandomImageLayout>
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        <LockOutlinedIcon />
+      <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+        <LockOutlinedIcon/>
       </Avatar>
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{email: '', password: ''}}
         validate={values => {
           const errors = {};
           if (!values.email) {
@@ -33,17 +38,38 @@ export default function SignIn() {
           ) {
             errors.email = 'Invalid email address';
           }
-
           if (!values.password) {
             errors.password = 'Required';
           }
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={(values, {setSubmitting}) => {
+          axios
+            .post(`${constant.serverUrl}/user/login`, values)
+            .then(response => {
+              const {success, message} = response.data;
+              if (success === 1) {
+                setErrorMsg('');
+                setSuccessMsg(message);
+              }
+              setSubmitting(false);
+            })
+            .catch(error => {
+              const {message, response, errors} = error.response.data;
+              if (response === 400) {
+                let errorsMsg = '<ul>'
+                errors.forEach(error => {
+                  errorsMsg += `<li>${error.message}</li>`
+                });
+                errorsMsg += `</ul>`;
+                setErrorMsg(errorsMsg)
+              } else {
+                setErrorMsg(message);
+              }
+              setSuccessMsg('');
+              setSubmitting(false);
+            });
+          setSubmitting(false);
         }}
       >
         {({
@@ -55,7 +81,9 @@ export default function SignIn() {
             handleSubmit,
             isSubmitting,
           }) => (
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
+            {errorMsg && <Alert severity="error"><span dangerouslySetInnerHTML={{__html: errorMsg}}/></Alert>}
+            {successMsg && <Alert severity="success">{successMsg}</Alert>}
             <TextField
               margin="normal"
               required
@@ -89,12 +117,12 @@ export default function SignIn() {
               fullWidth
               disabled={isSubmitting}
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{mt: 3, mb: 2}}
             >
-              {isSubmitting? 'Loading...': 'Sign In'}
+              {isSubmitting ? 'Loading...' : 'Sign In'}
             </Button>
             <Grid container>
-              <Grid item xs />
+              <Grid item xs/>
               <Grid item>
                 <Link to="/sign-up" variant="body2">
                   {"Don't have an account? Sign Up"}

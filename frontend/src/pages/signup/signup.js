@@ -54,7 +54,6 @@ export default function Signup() {
           axios
             .post(`${constant.serverUrl}/user/sign-up`, values)
             .then(response => {
-              console.log('signup response ==', response.data);
               const {success, message} = response.data;
               if (success === 1) {
                 setErrorMsg('');
@@ -89,7 +88,7 @@ export default function Signup() {
             isSubmitting,
           }) => (
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
-            {errorMsg && <Alert severity="error"><span dangerouslySetInnerHTML={{__html: errorMsg}} /></Alert>}
+            {errorMsg && <Alert severity="error"><span dangerouslySetInnerHTML={{__html: errorMsg}}/></Alert>}
             {successMsg && <Alert severity="success">{successMsg}</Alert>}
             <Box display="flex" flexDirection="row" justifyContent="space-between">
               <Box sx={{width: '48%'}} display="flex" flexDirection="column">
