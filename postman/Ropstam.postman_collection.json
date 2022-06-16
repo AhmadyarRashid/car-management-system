@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "4a55bdea-79cd-4eba-8593-95ece2ff437d",
+		"name": "Ropstam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6750119"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ahmad@gmail.com\",\n    \"firstName\": \"ahmad\",\n    \"lastName\": \"yar\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/user/sign-up",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"user",
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ahmadyarmeo@gmail.com\",\n    \"password\": \"v6omqr\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "categories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE5Nzc5OGE3ODc3ODZjMDIxMjdjOTciLCJlbWFpbCI6ImFobWFkeWFybWVvQGdtYWlsLmNvbSIsImlhdCI6MTY1NTM1NTI0OCwiZXhwIjoxNjU1MzYyNDQ4fQ.pQt6XRssPVy2wQ3WXj_kgXxjP3BfJESp5CfVAf39Gbw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/car/category",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"car",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add categories",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE5Nzc5OGE3ODc3ODZjMDIxMjdjOTciLCJlbWFpbCI6ImFobWFkeWFybWVvQGdtYWlsLmNvbSIsImlhdCI6MTY1NTM1NTI0OCwiZXhwIjoxNjU1MzYyNDQ4fQ.pQt6XRssPVy2wQ3WXj_kgXxjP3BfJESp5CfVAf39Gbw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Truck\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/car/category",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"car",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE2MzIxYjllNTg5ZTQ0MWZjNDQ4NWYiLCJlbWFpbCI6ImFobWFkQGdtYWlsLmNvbSIsImlhdCI6MTY1NTExNDQzOSwiZXhwIjoxNjU1MTIxNjM5fQ.O8IFtgoBysPnF55EQloc7nIhTvK85Q_UWEMypwg37cY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Toyota\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/car/category/62a70bce372fd695f0f9e695",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"car",
+						"category",
+						"62a70bce372fd695f0f9e695"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE5Nzc5OGE3ODc3ODZjMDIxMjdjOTciLCJlbWFpbCI6ImFobWFkeWFybWVvQGdtYWlsLmNvbSIsImlhdCI6MTY1NTM1NTI0OCwiZXhwIjoxNjU1MzYyNDQ4fQ.pQt6XRssPVy2wQ3WXj_kgXxjP3BfJESp5CfVAf39Gbw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/car/category/62aabedbf63cc32030b5ac9a",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"car",
+						"category",
+						"62aabedbf63cc32030b5ac9a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch cars",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE2MzIxYjllNTg5ZTQ0MWZjNDQ4NWYiLCJlbWFpbCI6ImFobWFkQGdtYWlsLmNvbSIsImlhdCI6MTY1NTEzNzQzNywiZXhwIjoxNjU1MTQ0NjM3fQ.b_lyive7i1YumrMANQUd45BwFAxDakfwax8khbYff_E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/car",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add car",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE2MzIxYjllNTg5ZTQ0MWZjNDQ4NWYiLCJlbWFpbCI6ImFobWFkQGdtYWlsLmNvbSIsImlhdCI6MTY1NTEzNzQzNywiZXhwIjoxNjU1MTQ0NjM3fQ.b_lyive7i1YumrMANQUd45BwFAxDakfwax8khbYff_E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Mehrann\",\n    \"make\": \"Suzuki\",\n    \"registrationNo\": \"AYR03400119339\",\n    \"description\": \"Good condition 8/10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/car",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Car",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE2MzIxYjllNTg5ZTQ0MWZjNDQ4NWYiLCJlbWFpbCI6ImFobWFkQGdtYWlsLmNvbSIsImlhdCI6MTY1NTEzODYzMywiZXhwIjoxNjU1MTQ1ODMzfQ.63OxNVxjmS6hqdIHy_QA1poKw60O9hASG3WCOGBOpqM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/car/62a768f4c6d6cc4ab6273cf9",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"car",
+						"62a768f4c6d6cc4ab6273cf9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update Car",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmE2MzIxYjllNTg5ZTQ0MWZjNDQ4NWYiLCJlbWFpbCI6ImFobWFkQGdtYWlsLmNvbSIsImlhdCI6MTY1NTEzNzQzNywiZXhwIjoxNjU1MTQ0NjM3fQ.b_lyive7i1YumrMANQUd45BwFAxDakfwax8khbYff_E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Cultus\",\n    \"make\": \"Suzuki\",\n    \"registrationNo\": \"AYR03400119339\",\n    \"description\": \"Good condition 8/10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1.0/car/62a769852320ffa1a56f090b",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1.0",
+						"car",
+						"62a769852320ffa1a56f090b"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
