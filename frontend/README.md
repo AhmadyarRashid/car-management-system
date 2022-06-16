@@ -1,10 +1,16 @@
-# Ropstam Task
+# Ropstam Frontend Task
 
 ![version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
 This task has the following feature such as login, signup, CRUD operation of category and car.
 
-Special thanks go for the owners of these plugins:
+### Why I am not using Redux or Context API ?
+
+This is small application which have only 4-5 features. To avoid code complexity I haven't used it. 
+Basically this state Management Tools are used for handling large data and for complex feature. Otherwise, 
+I have no any issue to implement code according to Redux or Context API. 
+
+### Special thanks go for the owners of these plugins:
 - [Material UI](https://mui.com/)
 - [Axios](https://axios-http.com/docs/intro)
 - [Formik](https://formik.org/)
