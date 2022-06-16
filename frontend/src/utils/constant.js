@@ -5,6 +5,7 @@ import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFi
 const constants = {
   serverUrl: 'http://localhost:3001/api/v1.0',
   tokenHeader: 'Bearer',
+  tableDataLimit: 5,
   sideBarList: [
     {
       text: 'Category',

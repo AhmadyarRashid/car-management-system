@@ -118,12 +118,19 @@ module.exports = {
    * @param next
    */
   fetchCars(req, res, next) {
-    carModel.find({}, async (err, cars) => {
+    const {page, limit} = req.query;
+    winston.info(`fetch page with page: ${page} and limit: ${limit}`);
+    carModel.find({}, {}, { skip: page*limit, limit }, async (err, cars) => {
         if (err) {
           winston.error(`Update Category failed error ${err}`);
           next(err);
         } else {
-          res.status(200).send(common.getResponseObject('Fetched Successfully', 200, 1, cars));
+          carModel.countDocuments({}, (err, totalCount) => {
+            res.status(200).send(common.getResponseObject('Fetched Successfully', 200, 1, {
+              total: totalCount,
+              cars,
+            }));
+          });
         }
     });
   },

@@ -16,8 +16,10 @@ import AddCar from "../../components/Forms/AddCar";
 import {getErrorMsg} from "../../utils/helper";
 
 export default function CarsPage() {
+
   const navigate = useNavigate();
-  const [page] = useState(0);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [cars, setCars] = useState([]);
@@ -44,18 +46,27 @@ export default function CarsPage() {
 
   const fetchCar = () => {
     setLoading(true);
+    setCars([]);
     axios
-      .get(`${constants.serverUrl}/car`)
+      .get(`${constants.serverUrl}/car`, {
+        params: {
+          page,
+          limit: constants.tableDataLimit
+        }
+      })
       .then(response => {
         setLoading(false);
         const {success, payload} = response.data;
+        const {cars: carsList, total} = payload;
         if (success === 1) {
-          setCars(payload);
+          setTotalPages(Math.ceil(total / constants.tableDataLimit));
+          setCars(carsList);
         }
       })
       .catch(error => {
         const errorMsg = getErrorMsg(error, navigate);
         console.log('errorMsg:', errorMsg);
+        setCars([]);
         setLoading(false);
       });
   };
@@ -68,6 +79,10 @@ export default function CarsPage() {
       fetchCategory();
     }
   }, [navigate]);
+
+  useEffect(() => {
+    fetchCar();
+  }, [page]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -102,13 +117,12 @@ export default function CarsPage() {
       return <DeleteItem {...selectedCar} onCancel={handleClose} onDeleteHandler={onDeleteCategoryHandler}/>;
     }
   }
-
   const rows = cars.map(({_id, name, make, model}, index) => ({
-    id: index + 1,
+    id: (page * constants.tableDataLimit) + (index + 1),
     _id,
     name,
     make,
-    model
+    model,
   }));
 
   return (
@@ -141,7 +155,12 @@ export default function CarsPage() {
         }}
       />
       <Box display="flex" justifyContent="flex-end" mt={4}>
-        <Pagination count={20} variant="outlined" shape="rounded"/>
+        <Pagination
+          count={totalPages}
+          onChange={(event, value) => setPage(value - 1)}
+          variant="outlined"
+          shape="rounded"
+        />
       </Box>
       <Modal
         open={open}
