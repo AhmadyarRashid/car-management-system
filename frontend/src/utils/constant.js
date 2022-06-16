@@ -8,14 +8,14 @@ const constants = {
   tableDataLimit: 5,
   sideBarList: [
     {
-      text: 'Category',
-      icon: <CategoryOutlinedIcon/>,
-      url: '/category',
-    },
-    {
       text: 'Cars',
       icon: <DirectionsCarFilledOutlinedIcon/>,
       url: '/',
+    },
+    {
+      text: 'Category',
+      icon: <CategoryOutlinedIcon/>,
+      url: '/category',
     }
   ],
   drawerWidth: 240,

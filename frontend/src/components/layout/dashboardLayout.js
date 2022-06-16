@@ -23,6 +23,7 @@ import {
   Drawer, DrawerHeader
 } from './dashboardLayout.styled';
 import constant from "../../utils/constant";
+import {LogoutOutlined} from "@mui/icons-material";
 
 export default function DashboardLayout({children}) {
   const location = useLocation();
@@ -92,6 +93,29 @@ export default function DashboardLayout({children}) {
               </ListItemButton>
             </ListItem>
           ))}
+          <ListItem key="logout" disablePadding sx={{display: 'block'}}>
+            <ListItemButton
+              onClick={() => {
+                localStorage.removeItem('token');
+                navigate('/sign-in', {replace: true});
+              }}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}>
+                <LogoutOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Logout" sx={{opacity: open ? 1 : 0}}/>
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
       <Box component="main" sx={{flexGrow: 1, p: 3}}>
