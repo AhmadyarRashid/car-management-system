@@ -46,7 +46,6 @@ export default function CarsPage() {
 
   const fetchCar = () => {
     setLoading(true);
-    setCars([]);
     axios
       .get(`${constants.serverUrl}/car`, {
         params: {
@@ -64,6 +63,7 @@ export default function CarsPage() {
         }
       })
       .catch(error => {
+        console.log('errors:', error);
         const errorMsg = getErrorMsg(error, navigate);
         console.log('errorMsg:', errorMsg);
         setCars([]);

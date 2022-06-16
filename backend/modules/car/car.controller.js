@@ -51,14 +51,32 @@ module.exports = {
    * @param next
    */
   fetchCategories(req, res, next) {
-    categoryModel.find({}, async (err, categories) => {
-      if (err) {
-        winston.error(`Category failed error ${err}`);
-        next(err);
-      } else {
-        res.status(200).send(common.getResponseObject('Category fetched', 200, 1, categories));
-      }
-    });
+    const {page, limit} = req.query;
+    winston.info(`fetch categories with page: ${page} and limit: ${limit}`);
+    if (!page && !limit) {
+      categoryModel.find({}, async (err, categories) => {
+        if (err) {
+          winston.error(`Category failed error ${err}`);
+          next(err);
+        } else {
+          res.status(200).send(common.getResponseObject('Fetched Successfully', 200, 1, categories));
+        }
+      });
+    } else { // Apply pagination
+      categoryModel.find({},{}, { skip: page*limit, limit }, async (err, categories) => {
+        if (err) {
+          winston.error(`Category failed error ${err}`);
+          next(err);
+        } else {
+          categoryModel.countDocuments({}, (err, totalCount) => {
+            res.status(200).send(common.getResponseObject('Fetched Successfully', 200, 1, {
+              total: totalCount,
+              categories,
+            }));
+          });
+        }
+      });
+    }
   },
   /**
    * Update Category
@@ -119,7 +137,7 @@ module.exports = {
    */
   fetchCars(req, res, next) {
     const {page, limit} = req.query;
-    winston.info(`fetch page with page: ${page} and limit: ${limit}`);
+    winston.info(`fetch cars with page: ${page} and limit: ${limit}`);
     carModel.find({}, {}, { skip: page*limit, limit }, async (err, cars) => {
         if (err) {
           winston.error(`Update Category failed error ${err}`);

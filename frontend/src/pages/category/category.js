@@ -17,7 +17,8 @@ import {getErrorMsg} from "../../utils/helper";
 export default function CategoryPage() {
 
   const navigate = useNavigate();
-  const [page] = useState(0);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -29,12 +30,19 @@ export default function CategoryPage() {
   const fetchCategory = () => {
     setLoading(true);
     axios
-      .get(`${constants.serverUrl}/car/category`)
+      .get(`${constants.serverUrl}/car/category`, {
+        params: {
+          page,
+          limit: constants.tableDataLimit
+        }
+      })
       .then(response => {
         setLoading(false);
         const {success, payload} = response.data;
+        const {categories: list, total} = payload;
         if (success === 1) {
-          setCategories(payload);
+          setTotalPages(Math.ceil(total / constants.tableDataLimit));
+          setCategories(list);
         }
       })
       .catch(error => {
@@ -51,6 +59,9 @@ export default function CategoryPage() {
       fetchCategory();
     }
   }, [navigate, token]);
+  useEffect(() => {
+    fetchCategory();
+  }, [page]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -82,7 +93,7 @@ export default function CategoryPage() {
   }
 
   const rows = categories.map(({_id, name}, index) => ({
-    id: index + 1,
+    id: (page * constants.tableDataLimit) + (index + 1),
     _id,
     name,
   }));
@@ -112,7 +123,12 @@ export default function CategoryPage() {
         }}
       />
       <Box display="flex" justifyContent="flex-end" mt={4}>
-        <Pagination count={rows.length / 5} variant="outlined" shape="rounded"/>
+        <Pagination
+          count={totalPages}
+          onChange={(event, value) => setPage(value - 1)}
+          variant="outlined"
+          shape="rounded"
+        />
       </Box>
 
       <Modal
