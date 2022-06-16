@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# Ropstam Task
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-## Available Scripts
+This task has the following feature such as login, signup, CRUD operation of category and car.
 
-In the project directory, you can run:
+Special thanks go for the owners of these plugins:
+- [Material UI](https://mui.com/)
+- [Axios](https://axios-http.com/docs/intro)
+- [Formik](https://formik.org/)
+- [React Router dom](https://reactrouter.com/)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+We are very excited to share this dashboard with you and we look forward to hearing your feedback!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Table of Contents
 
-### `npm test`
+* [ScreenShots](#screenshots)
+* [Quick Setup](#quick-setup)
+* [File Structure](#file-structure)
+* [Browser Support](#browser-support)
+* [Licensing](#licensing)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Screenshots
+<img src="./src/screenshots/sign-up.png" width="48%" />
+<img src="./src/screenshots/sign-in.png" width="48%" />
+<img src="./src/screenshots/email-pass.png"/>
+<img src="./src/screenshots/cars.png" width="48%" />
+<img src="./src/screenshots/add-car.png" width="48%" />
+<img src="./src/screenshots/car-details.png" width="48%"/>
+<img src="./src/screenshots/categories.png" width="48%" />
+<img src="./src/screenshots/add-category.png" />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## File Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Within the download you'll find the following directories and files:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+frontend
+.
+│
+├── .gitignore
+├── README.md
+├── package.json
+├── public
+│   └── index.html
+└── src
+    ├── index.js
+    ├── App.js
+    ├── pages
+    │   ├── cars
+    │   │   └── cars.js
+    │   ├── category
+    │   │   └── category.js
+    │   ├── signin
+    │   │   └── signin.js
+    │   └── signup
+    │       └── signup.js
+    ├── components
+    │   ├── copyright
+    │   │   └── copyright.js
+    │   ├── forms
+    │   │   ├── addCar.js
+    │   │   └── addCategory.js
+    │   ├── layout
+    │   │   ├── dashboardLayout.js
+    │   │   ├── dashboardLayout.styled.js
+    │   │   └── randomImageLayout.js
+    │   ├── modals
+    │   │   ├── carDetails.js
+    │   │   └── deleteItem.js
+    │   └── muiSortableTable
+    │       └── muiSortableTable.js
+    └── utils
+        ├── constanst.js
+        └── helper.js
+```
 
-### `npm run eject`
+## Quick Setup
+Install the dependencies and devDependencies.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
+cd {INSTALLED_REPO}
+yarn install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Run Project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```sh
+yarn start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Browser Support
 
-## Learn More
+At present, we officially aim to support the last two versions of the following browsers:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/chrome.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/firefox.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/edge.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/safari.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/opera.png" width="64" height="64">
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Licensing
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Copyright 2022 AhmadyarMeo (https://github.com/AhmadyarRashid)

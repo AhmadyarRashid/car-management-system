@@ -8,8 +8,8 @@ import axios from "axios";
 
 // App Dependencies
 import DashboardLayout from "../../components/layout/dashboardLayout";
-import MuiSortableTable from "../../components/muiSortableTable/MuiSortableTable";
-import AddCategory from "../../components/Forms/AddCategory";
+import MuiSortableTable from "../../components/muiSortableTable/muiSortableTable";
+import AddCategory from "../../components/forms/addCategory";
 import DeleteItem from "../../components/modals/deleteItem";
 import constants, {modalStyles, categoryTableHeader} from "../../utils/constant";
 import {getErrorMsg} from "../../utils/helper";

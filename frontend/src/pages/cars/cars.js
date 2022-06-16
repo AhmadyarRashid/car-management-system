@@ -8,11 +8,11 @@ import axios from "axios";
 
 // App Dependencies
 import DashboardLayout from "../../components/layout/dashboardLayout";
-import MuiSortableTable from "../../components/muiSortableTable/MuiSortableTable";
+import MuiSortableTable from "../../components/muiSortableTable/muiSortableTable";
 import constants, {modalStyles, carTableHeader} from "../../utils/constant";
 import CarDetails from "../../components/modals/carDetails";
 import DeleteItem from "../../components/modals/deleteItem";
-import AddCar from "../../components/Forms/AddCar";
+import AddCar from "../../components/forms/addCar";
 import {getErrorMsg} from "../../utils/helper";
 
 export default function CarsPage() {
