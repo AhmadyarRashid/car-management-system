@@ -132,8 +132,4 @@ module.exports = {
       }
     });
   },
-  // Get User Profile
-  userProfile(req, res) {
-    res.status(200).send(common.getResponseObject('Authorized successfully', 200, 1, req.user));
-  },
 };

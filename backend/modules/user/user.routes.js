@@ -19,11 +19,5 @@ module.exports = function (app, version) {
     errorMiddleware,
     userController.userLogin
   );
-  app.get(
-    `${version}${resource}/me`,
-    common.verifyToken,
-    errorMiddleware,
-    userController.userProfile
-  );
 };
 
