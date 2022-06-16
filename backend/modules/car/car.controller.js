@@ -107,7 +107,7 @@ module.exports = {
       winston.error(`Update Category failed error ${isError}`);
       next(isError);
     } else {
-      winston.info(`Car with title ${req.body.title} added by ${req.user.userId}`)
+      winston.info(`Car with name ${req.body.name} added by ${req.user.userId}`)
       res.status(200).send(common.getResponseObject('Added Successfully', 200, 1, carResponse));
     }
   },
@@ -150,7 +150,7 @@ module.exports = {
    * @param next
    */
   deleteCar(req, res, next) {
-    carModel.findOneAndDelete(req.params.id, {}, (err, response) => {
+    carModel.findOneAndDelete({ _id: new mongoose.Types.ObjectId(req.params.id)}, {}, (err, response) => {
       if (err) {
         winston.error(`Delete Car API failed with error ${err}`);
         next(err);

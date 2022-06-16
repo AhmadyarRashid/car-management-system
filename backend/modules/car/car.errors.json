@@ -12,10 +12,10 @@
     "msg": "Invalid id"
   },
   "2005": {
-    "msg": "Title is required and it should be a string."
+    "msg": "Name is required and it should be a string."
   },
   "2006": {
-    "msg": "Title should be a string."
+    "msg": "Name should be a string."
   },
   "2007": {
     "msg": "Model should be a string with minimum length of 3."
@@ -33,7 +33,7 @@
     "msg": "Registration No should be a string."
   },
   "2012": {
-    "msg": "Color should be a string."
+    "msg": "Category is required and should be a string."
   },
   "2013": {
     "msg": "Condition should be a string."
@@ -42,6 +42,6 @@
     "msg": "Description is required and its should be a string."
   },
   "2015": {
-    "msg": "Description should be a string."
+    "msg": "Description length must be greater than 10 char"
   }
 }

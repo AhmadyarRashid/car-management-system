@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
 const CarSchema = new mongoose.Schema({
-  title: {
+  name: {
     type: String,
     required: true,
+  },
+  category: {
+    type: String,
+    default: null,
   },
   model: {
     type: String,
@@ -14,10 +18,6 @@ const CarSchema = new mongoose.Schema({
     default: null,
   },
   registrationNo: {
-    type: String,
-    default: null,
-  },
-  color: {
     type: String,
     default: null,
   },

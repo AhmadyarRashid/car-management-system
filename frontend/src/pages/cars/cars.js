@@ -3,64 +3,113 @@ import React, {useState, useEffect} from 'react';
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import {useNavigate} from "react-router-dom";
-import {Modal} from "@mui/material";
+import {Backdrop, CircularProgress, Modal} from "@mui/material";
+import axios from "axios";
 
 // App Dependencies
 import DashboardLayout from "../../components/layout/dashboardLayout";
 import MuiSortableTable from "../../components/muiSortableTable/MuiSortableTable";
-import constants, { modalStyles, carTableHeader } from "../../utils/constant";
+import constants, {modalStyles, carTableHeader} from "../../utils/constant";
+import CarDetails from "../../components/modals/carDetails";
 import DeleteItem from "../../components/modals/deleteItem";
 import AddCar from "../../components/Forms/AddCar";
-import CarDetails from "../../components/modals/carDetails";
-
-function createData(id, _id, title, make, model) {
-  return {
-    id,
-    _id,
-    title,
-    make,
-    model,
-  };
-}
-
-const rows = [
-  createData(1, 'a123njdc9','Mehran', 'Suzuki', '2012'),
-  createData(2, 'a123njdc9','Cultus', 'Suzuki', '2009'),
-  createData(3, 'a123njdc9','Swift', 'Suzuki', '2009'),
-  createData(4, 'a123njdc9','Honda Civic', 'Honda', '2009'),
-  createData(5, 'a123njdc9','Honda City', 'Honda', '2009'),
-  createData(6, 'a123njdc9','Prius', 'Toyota', '2009'),
-  createData(7, 'a123njdc9','GLI', 'Toyota', '2009'),
-];
+import {getErrorMsg} from "../../utils/helper";
 
 export default function CarsPage() {
   const navigate = useNavigate();
   const [page] = useState(0);
+  const [isLoading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [cars, setCars] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCar, setSelectedCar] = useState({});
   const [modalType, setModalType] = useState(constants.modalType.add);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
+  const fetchCategory = () => {
+    axios
+      .get(`${constants.serverUrl}/car/category`)
+      .then(response => {
+        const {success, payload} = response.data;
+        if (success === 1) {
+          setCategories(payload);
+        }
+      })
+      .catch(error => {
+        const errorMsg = getErrorMsg(error, navigate);
+        console.log('errorMsg:', errorMsg);
+      });
+  };
+
+  const fetchCar = () => {
+    setLoading(true);
+    axios
+      .get(`${constants.serverUrl}/car`)
+      .then(response => {
+        setLoading(false);
+        const {success, payload} = response.data;
+        if (success === 1) {
+          setCars(payload);
+        }
+      })
+      .catch(error => {
+        const errorMsg = getErrorMsg(error, navigate);
+        console.log('errorMsg:', errorMsg);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
     if (!token) {
-      navigate("/sign-in", { replace: true });
+      navigate("/sign-in", {replace: true});
+    } else {
+      fetchCar();
+      fetchCategory();
     }
   }, [navigate]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const onDeleteCategoryHandler = _id => {
+    setOpen(false);
+    setLoading(true);
+    axios
+      .delete(`${constants.serverUrl}/car/${_id}`)
+      .then(() => {
+        setLoading(false);
+        fetchCar();
+      })
+      .catch(error => {
+        const errorMsg = getErrorMsg(error, navigate);
+        alert(errorMsg.toString());
+        setLoading(false);
+      });
+  }
+
   const decideModalBody = () => {
+    const categoryList = categories.map(({_id, name}) => ({
+      label: name,
+    }))
     if (modalType === constants.modalType.add) {
-      return <AddCar onClose={handleClose} />;
+      return <AddCar categories={categoryList} onRefresh={fetchCar} onClose={handleClose}/>;
     } else if (modalType === constants.modalType.edit) {
-      return <AddCar isEdit onClose={handleClose} />;
+      return <AddCar categories={categoryList} onRefresh={fetchCar} car={selectedCar} isEdit onClose={handleClose}/>;
     } else if (modalType === constants.modalType.details) {
-      return <CarDetails />;
+      return <CarDetails car={selectedCar}/>;
     } else {
-      return <DeleteItem />;
+      return <DeleteItem {...selectedCar} onCancel={handleClose} onDeleteHandler={onDeleteCategoryHandler}/>;
     }
   }
+
+  const rows = cars.map(({_id, name, make, model}, index) => ({
+    id: index + 1,
+    _id,
+    name,
+    make,
+    model
+  }));
 
   return (
     <DashboardLayout>
@@ -75,15 +124,18 @@ export default function CarsPage() {
           setModalType(constants.modalType.add);
           handleOpen();
         }}
-        onEditHandler={() => {
+        onEditHandler={selCar => {
+          setSelectedCar(cars.find(car => car._id === selCar._id));
           setModalType(constants.modalType.edit);
           handleOpen();
         }}
-        onDeleteHandler={() => {
+        onDeleteHandler={car => {
+          setSelectedCar(car);
           setModalType(constants.modalType.delete);
           handleOpen();
         }}
-        onDetailHandler={() => {
+        onDetailHandler={selCar => {
+          setSelectedCar(cars.find(car => car._id === selCar._id));
           setModalType(constants.modalType.details);
           handleOpen();
         }}
@@ -101,6 +153,12 @@ export default function CarsPage() {
           {decideModalBody()}
         </Box>
       </Modal>
+
+      <Backdrop
+        sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+        open={isLoading}>
+        <CircularProgress color="inherit"/>
+      </Backdrop>
     </DashboardLayout>
   )
 }
