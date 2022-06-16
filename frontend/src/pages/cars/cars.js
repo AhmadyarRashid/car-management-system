@@ -1,7 +1,8 @@
 // NPM Dependencies
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
+import {useNavigate} from "react-router-dom";
 import {Modal} from "@mui/material";
 
 // App Dependencies
@@ -33,9 +34,18 @@ const rows = [
 ];
 
 export default function CarsPage() {
+  const navigate = useNavigate();
   const [page] = useState(0);
   const [open, setOpen] = useState(false);
   const [modalType, setModalType] = useState(constants.modalType.add);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      navigate("/sign-in", { replace: true });
+    }
+  }, [navigate]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

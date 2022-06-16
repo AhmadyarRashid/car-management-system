@@ -1,6 +1,7 @@
 // NPM dependencies
 const { to } = require("await-to-js");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 // App dependencies
 const winston = require('../../config/winston');
@@ -82,12 +83,13 @@ module.exports = {
    * @param next
    */
   deleteCategory(req, res, next) {
-    categoryModel.findOneAndDelete(req.params.id, {}, (err, response) => {
+    winston.info(`Deleting category ${req.params.id} by ${req.user.userId}`);
+    categoryModel.findOneAndDelete({_id: new mongoose.Types.ObjectId(req.params.id)}, {}, (err, response) => {
       if (err) {
         winston.error(`Delete Category API failed with error ${err}`);
         next(err);
       } else {
-        res.status(200).send(common.getResponseObject('Category deleted', 200, 1));
+        res.status(200).send(common.getResponseObject('Category deleted', 200, 1, response));
       }
     });
   },

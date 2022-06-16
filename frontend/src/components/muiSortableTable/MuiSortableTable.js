@@ -108,7 +108,7 @@ const EnhancedTableToolbar = ({title, displayAddNew, openAddNewHandler}) => (
 export default function MuiSortableTable(props) {
   const {
     rows, header, title,
-    displayAddNew = false, page = 0, displayInfoIcon= false,
+    displayAddNew = false, page = 0, displayInfoIcon = false,
     openAddNewHandler, onEditHandler, onDeleteHandler, onDetailHandler
   } = props;
   const [order, setOrder] = useState('asc');
@@ -158,13 +158,16 @@ export default function MuiSortableTable(props) {
                           align="left"
                         >{row[attribute]}</TableCell>)}
                       <TableCell align="left">
-                        {displayInfoIcon && <InfoOutlinedIcon onClick={onDetailHandler} sx={{marginRight: 2, color: 'skyblue', cursor: 'pointer'}}/>}
+                        {displayInfoIcon && <InfoOutlinedIcon
+                          onClick={() => onDetailHandler(row)}
+                          sx={{marginRight: 2, color: 'skyblue', cursor: 'pointer'}}
+                        />}
                         <EditOutlinedIcon
-                          onClick={onEditHandler}
+                          onClick={() => onEditHandler(row)}
                           sx={{marginRight: 2, color: 'orange', cursor: 'pointer'}}
                         />
                         <DeleteOutlineOutlinedIcon
-                          onClick={onDeleteHandler}
+                          onClick={() => onDeleteHandler(row)}
                           sx={{color: 'red', cursor: 'pointer'}}
                         />
                       </TableCell>

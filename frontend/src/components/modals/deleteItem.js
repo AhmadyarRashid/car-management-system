@@ -4,14 +4,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-function DeleteItem(){
+function DeleteItem({ _id, name, onDeleteHandler, onCancel }){
   return (
     <Box>
       <Typography variant="h6" component="h2">Delete</Typography>
-      <Typography variant="body1" mt={1.5}>Are you sure to delete this Item ?</Typography>
+      <Typography variant="body1" mt={1.5}>Are you sure to delete {name} ?</Typography>
       <Box mt={2} display="flex" flexDirection="row" justifyContent="flex-end">
-        <Button>No</Button>
-        <Button color="error" variant="contained">Yes</Button>
+        <Button onClick={onCancel}>No</Button>
+        <Button onClick={() => onDeleteHandler(_id)} color="error" variant="contained">Yes</Button>
       </Box>
     </Box>
   )

@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {Alert} from "@mui/material";
 import {Formik} from 'formik';
 import axios from 'axios';
@@ -17,6 +17,7 @@ import RandomImageLayout from "../../components/layout/randomImageLayout";
 import constant from "../../utils/constant";
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   return (
@@ -47,12 +48,20 @@ export default function SignIn() {
           axios
             .post(`${constant.serverUrl}/user/login`, values)
             .then(response => {
-              const {success, message} = response.data;
+              const {success, message, payload} = response.data;
               if (success === 1) {
                 setErrorMsg('');
                 setSuccessMsg(message);
+                const {token} = payload;
+                localStorage.setItem('token', token);
+                axios.defaults.headers.common['Authorization'] = `${constant.tokenHeader} ${token}`;
+                setTimeout(() => {
+                  setSubmitting(false);
+                  navigate("/", { replace: true });
+                }, 1000);
+              } else {
+                setSubmitting(false);
               }
-              setSubmitting(false);
             })
             .catch(error => {
               const {message, response, errors} = error.response.data;
@@ -69,7 +78,6 @@ export default function SignIn() {
               setSuccessMsg('');
               setSubmitting(false);
             });
-          setSubmitting(false);
         }}
       >
         {({
