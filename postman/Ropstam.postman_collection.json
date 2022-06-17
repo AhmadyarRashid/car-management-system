@@ -290,7 +290,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Mehrann\",\n    \"make\": \"Suzuki\",\n    \"registrationNo\": \"AYR03400119339\",\n    \"description\": \"Good condition 8/10\"\n}",
+					"raw": "{\n    \"name\": \"Mehrann\",\n    \"make\": \"Suzuki\",\n    \"registrationNo\": \"AYR03400119339\",\n    \"description\": \"Good condition 8/10\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
