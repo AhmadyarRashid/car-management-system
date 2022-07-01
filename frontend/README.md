@@ -29,13 +29,13 @@ We are very excited to share this dashboard with you and we look forward to hear
 
 
 ## Screenshots
-<img src="./src/screenshots/sign-up.png" width="48%" />
-<img src="./src/screenshots/sign-in.png" width="48%" />
+<img src="./src/screenshots/sign-up.png" width="45%" />
+<img src="./src/screenshots/sign-in.png" width="45%" />
 <img src="./src/screenshots/email-pass.png"/>
-<img src="./src/screenshots/cars.png" width="48%" />
-<img src="./src/screenshots/add-car.png" width="48%" />
-<img src="./src/screenshots/car-details.png" width="48%"/>
-<img src="./src/screenshots/categories.png" width="48%" />
+<img src="./src/screenshots/cars.png" width="45%" />
+<img src="./src/screenshots/add-car.png" width="45%" />
+<img src="./src/screenshots/car-details.png" width="45%"/>
+<img src="./src/screenshots/categories.png" width="45%" />
 <img src="./src/screenshots/add-category.png" />
 
 ## File Structure
