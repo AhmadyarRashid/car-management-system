@@ -99,13 +99,13 @@ module.exports = {
                   port: 465,
                   secure: true,
                   auth: {
-                    user: constants.googleEmail,
-                    pass: constants.googlePass
+                    user: process.env.googleEmail,
+                    pass: process.env.googlePass
                   }
                 });
 
                 await transporter.sendMail({
-                  from: constants.googleEmail,
+                  from: process.env.googleEmail,
                   to: email,
                   subject: 'Congratulation. Your account is created.',
                   text: `Your Password is ${password}`
